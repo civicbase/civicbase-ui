@@ -1,0 +1,22 @@
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": false,
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react(.*)",
+    "twin.macro",
+    "@ui/(.*)",
+    "antd/(.*)",
+    "<THIRD_PARTY_MODULES>",
+    "@/(.*)",
+    "^[./]"
+  ],
+  "importOrderSeparation": true
+}
