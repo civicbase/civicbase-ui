@@ -105,14 +105,22 @@ const validationSchema = z
         z
           .object({
             id: z.string().optional(),
+            method: z.string(),
             statement: z.any(),
-            items: z.array(
-              z.object({
-                description: z
-                  .string()
-                  .min(1, { message: 'Item description must have more than 1 characters' }),
-              }),
-            ),
+            from: z.number().optional(),
+            to: z.number().optional(),
+            label1: z.string().optional(),
+            label2: z.string().optional(),
+            rows: z.any(),
+            columns: z.any(),
+
+            // items: z.array(
+            //   z.object({
+            //     description: z
+            //       .string()
+            //       .min(1, { message: 'Item description must have more than 1 characters' }),
+            //   }),
+            // ),
           })
           .refine(data => !(data.statement.getCurrentContent().getPlainText('\u0001') === ''), {
             message: 'This question is required',

@@ -68,7 +68,9 @@ const EditText = ({
       tabIndex={0}
     >
       <Typography
-        css={[(value === placeholder || !value) && tw`text-gray-400! hover:text-gray-700`]}
+        css={[
+          value === placeholder || !value ? tw`text-gray-400! hover:text-gray-700` : tw`text-black`,
+        ]}
       >
         {value || placeholder}
       </Typography>
