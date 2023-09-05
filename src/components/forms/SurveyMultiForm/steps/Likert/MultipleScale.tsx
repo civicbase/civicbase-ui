@@ -34,7 +34,7 @@ const MultipleScale = ({ index, isPublished }: { index: number; isPublished: boo
             <Typography>{i + 1}.</Typography>
             <div css={tw`flex-1`}>
               <EditText
-                name={`likert.${index}.rows.${i}.name`}
+                name={`likert.${index}.rows.${i}.value`}
                 placeholder={`Row ${i + 1}`}
                 disabled={isPublished}
               />
@@ -57,7 +57,7 @@ const MultipleScale = ({ index, isPublished }: { index: number; isPublished: boo
             <div tw="h-4 w-4 border border-gray-300 rounded-full mr-4" />
             <div css={tw`flex-1`}>
               <EditText
-                name={`likert.${index}.columns.${i}.name`}
+                name={`likert.${index}.columns.${i}.value`}
                 placeholder={`Column ${i + 1}`}
                 disabled={isPublished}
               />

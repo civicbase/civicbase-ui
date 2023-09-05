@@ -111,8 +111,8 @@ const validationSchema = z
             to: z.number().optional(),
             label1: z.string().optional(),
             label2: z.string().optional(),
-            rows: z.any(),
-            columns: z.any(),
+            rows: z.any().optional(),
+            columns: z.any().optional(),
 
             // items: z.array(
             //   z.object({

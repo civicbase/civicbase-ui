@@ -10,10 +10,13 @@ import { RadioGroup } from '@headlessui/react'
 import TextEditor from 'components/TextEditor'
 import { useSurvey, useSurveyState } from 'contexts/survey'
 import { convertFromRaw, EditorState } from 'draft-js'
+import { LikertMethod } from 'types/forms.d'
 import { Likert, Survey } from 'types/survey.d'
 import shuffle from 'utilities/shuffle'
 
 import FeedbackQuestions from '../../../FeedbackQuestions'
+import Multiple from './Multiple'
+import Single from './Single'
 
 export const LikertWithoutSubmit = ({ survey }: { survey: Survey }) => {
   const { control } = useFormContext()
@@ -42,16 +45,23 @@ export const LikertWithoutSubmit = ({ survey }: { survey: Survey }) => {
             />
           </Headline>
 
-          <div css={tw`grid grid-cols-2 gap-4 border-b-2`}>
+          {question.method === LikertMethod.SINGLE && (
+            <Single question={question} questionIndex={questionIndex} />
+          )}
+          {question.method === LikertMethod.MULTIPLE && (
+            <Multiple question={question} questionIndex={questionIndex} />
+          )}
+
+          {/* <div css={tw`grid grid-cols-2 gap-4 border-b-2`}>
             <div css={tw`col-span-1`} />
             <div css={tw`flex space-x-16 mb-2`}>
               {[1, 2, 3, 4, 5].map(item => (
                 <Typography key={item}>{item}</Typography>
               ))}
             </div>
-          </div>
+          </div> */}
 
-          {question.items.map((item, itemIndex) => (
+          {/* {question.items.map((item, itemIndex) => (
             <div css={tw`grid grid-cols-2 gap-4 mt-2 mb-6`} key={item.description}>
               <div>
                 <Typography>{item.description}</Typography>
@@ -91,7 +101,7 @@ export const LikertWithoutSubmit = ({ survey }: { survey: Survey }) => {
                 )}
               />
             </div>
-          ))}
+          ))} */}
         </div>
       ))}
 

@@ -29,7 +29,7 @@ const Setup = () => {
   const isActive = useWatch({ name: 'setup.feedback.active' })
   const method = useWatch({ name: 'setup.method' })
   const credits = useWatch({ name: 'setup.credits' })
-  const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint']
+  const methods: Methods[] = ['Quadratic', 'Likert'] // conjoint is not supported yet
 
   useEffect(() => {
     if (method !== Method.QUADRATIC) {

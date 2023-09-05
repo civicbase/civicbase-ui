@@ -43,6 +43,8 @@ type Likert = {
   label2?: string
   from: number
   to: number
+  rows?: any[]
+  columns?: any[]
 }
 
 type Conjoint = {

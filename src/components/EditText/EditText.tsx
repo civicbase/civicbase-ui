@@ -55,6 +55,7 @@ const EditText = ({
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         disabled={disabled}
+        autoFocus
       />
     )
   }

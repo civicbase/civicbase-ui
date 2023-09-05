@@ -20,7 +20,7 @@ const SurveyForm = () => {
 
   const methods = useForm<SurveyFormProps>({
     defaultValues: useMemo(() => getSurveyFormDefaultValues(survey), [survey]),
-    resolver: zodResolver(validationSchema),
+    // resolver: zodResolver(validationSchema),
   })
 
   const onSubmit: SubmitHandler<SurveyFormProps> = values => {
