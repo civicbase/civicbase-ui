@@ -63,7 +63,7 @@ const SingleScale = ({ index, isEditing }: { index: number; isEditing: boolean }
           name={`likert.${index}.label1`}
           control={control}
           render={({ field }) => (
-            <Input {...field} css={tw`w-1/2`} placeholder="1 Label(optional)" />
+            <Input {...field} css={tw`w-1/2`} placeholder="1 Label (optional)" />
           )}
         />
 
@@ -71,7 +71,7 @@ const SingleScale = ({ index, isEditing }: { index: number; isEditing: boolean }
           name={`likert.${index}.label2`}
           control={control}
           render={({ field }) => (
-            <Input {...field} css={tw`w-1/2`} placeholder={`${to} Label(optional)`} />
+            <Input {...field} css={tw`w-1/2`} placeholder={`${to} Label (optional)`} />
           )}
         />
       </div>

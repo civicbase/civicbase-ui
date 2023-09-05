@@ -44,9 +44,7 @@ const Filter = () => {
     },
   ]
 
-  const handleClick = (option: string) => {
-    console.log(option)
-  }
+  const handleClick = () => {}
 
   return (
     <Popover>
@@ -71,7 +69,7 @@ const Filter = () => {
                     <button
                       type="button"
                       key={item.name}
-                      onClick={() => handleClick(item.name)}
+                      onClick={handleClick}
                       tw="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:(outline-none ring-0)"
                     >
                       <div css={[tw`bg-brand/40 p-2 rounded-lg`]}>

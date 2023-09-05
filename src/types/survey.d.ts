@@ -60,6 +60,8 @@ type Likert = {
   }[]
   label1?: string
   label2?: string
+  rows?: any[]
+  columns?: any[]
 }
 
 type Quadratic = {

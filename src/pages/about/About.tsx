@@ -10,27 +10,25 @@ const About = () => {
     <div css={tw`h-full flex flex-col justify-center items-center`}>
       <img css={tw`w-[350px] mobile:w-[200px]`} src={Logo} alt="logo" />
 
-      <div>
-        <Typography css={tw`mb-4`}>
-          Civicbase is an open-source online platform for deploying surveys that aims to use
-          decision-making mechanisms and analytical techniques at the forefront of civic engagement.
-          The web application currently supports researchers in implementing surveys that involve
-          the novel method of Quadratic Voting Survey for Research (QVSR).
-        </Typography>
-
-        <Typography>
-          We are a group of technologists; developers, designers and economists who are interested
-          in the cutting edge of civic engagement and survey techniques that can help better uncover
-          preferences.
-        </Typography>
-
-        <Title css={tw`mt-8 mb-12`}>FAQ</Title>
+      <div tw="mobile:p-4">
+        <Title css={tw`mt-24 mb-12`}>FAQs</Title>
 
         <Subtitle css={tw`mb-6`}>What is QVSR?</Subtitle>
 
         <Typography css={tw`mb-4`}>
-          Quadratic Voting for Survey Research (QVSR) is a new survey tool inspired by the work of
-          Glen Weyl and Eric A. Posner on quadratic voting.
+          Quadratic Voting for Survey Research (QVSR) is a new survey technique introduced by
+          Charlotte Cavaille, Daniel L. Chen and Karine Van der Straeten in their paper, A Decision
+          Theoretic Approach to Understanding Survey Response: Likert vs. Quadratic Voting for
+          Attitudinal Research. Available{' '}
+          <a
+            href="https://lawreview.uchicago.edu/print-archive/decision-theoretic-approach-understanding-survey-response-likert-vs-quadratic-voting"
+            target="_blank"
+            rel="noreferrer"
+            css={tw`text-blue-500 hover:underline`}
+          >
+            here
+          </a>
+          . QVSR is inspired by the work of Glen Weyl and Eric A. Posner on Quadratic Voting.
         </Typography>
 
         <Typography css={tw`mb-4`}>
@@ -40,8 +38,20 @@ const About = () => {
         </Typography>
 
         <Typography css={tw`mb-4`}>
-          If you want more information on QVSR, please check out these two papers, which give you
-          some background on how QVSR works in practice and in theory:
+          If you want more information on quadratic voting, please check out these two papers, which
+          give you some background on how QV works in practice and in theory:
+        </Typography>
+
+        <Typography css={tw`mb-4`}>
+          Quadratic Voting: How Mechanism Design Can Radicalize Democracy. Available{' '}
+          <a
+            href="https://www.aeaweb.org/articles?id=10.1257/pandp.20181002"
+            target="_blank"
+            rel="noreferrer"
+            css={tw`text-blue-500 hover:underline`}
+          >
+            here
+          </a>
         </Typography>
 
         <Typography css={tw`mb-4`}>
@@ -56,23 +66,11 @@ const About = () => {
           </a>
         </Typography>
 
-        <Typography css={tw`mb-4`}>
-          Who Cares? Measuring Preferences Intensity in a Polarized Context Available{' '}
-          <a
-            href="https://charlottecavaille.wordpress.com/working-papers/"
-            target="_blank"
-            rel="noreferrer"
-            css={tw`text-blue-500 hover:underline`}
-          >
-            here
-          </a>
-        </Typography>
-
         <Typography css={tw`mb-12`}>
-          If you want more information on quadratic voting and the ideas developed by Weyl and
-          Posner, you can find it{' '}
+          Additionally Radical Exchange has provisioned a great resource on QV, which they call
+          Plural Voting. Available{' '}
           <a
-            href="https://www.radicalxchange.org/concepts/"
+            href="https://www.radicalxchange.org/concepts/plural-voting/"
             target="_blank"
             rel="noreferrer"
             css={tw`text-blue-500 hover:underline`}
@@ -91,17 +89,13 @@ const About = () => {
           <li>
             If you use less than 10 items, make sure to adjust the number of credits (N) accordingly
             (credits = N^2). For example: for 5 items we recommend 25 credits, 6 items - 36 credits,
-            etc...
+            etc.
           </li>
           <li>
             Use QVSR creatively: policy issues (minimum wage, gay rights, abortion...), candidate
             features (age, gender, electability), reform dimensions (costs, benefits, time horizon.)
           </li>
-          <li>Most topics studies using conjoint analysis can be studied using QVSR</li>
-          <li>
-            Keep in mind that you can also use a linear pricing function instead of a quadratic
-            pricing function
-          </li>
+          <li>Most topics studied using conjoint analysis can be studied using QVSR.</li>
         </ul>
 
         <Subtitle css={tw`mb-6`}>I want to help improve Civicbase: what next?</Subtitle>
@@ -127,6 +121,29 @@ const About = () => {
             </a>{' '}
           </li>
         </ul>
+
+        <Title css={tw`mt-8 mb-12`}>About</Title>
+
+        <Typography css={tw`mb-4`}>
+          Civicbase is an open-source, online platform for deploying Quadratic Voting Survey for
+          Research (QVSR) and other survey techniques at the forefront of civic engagement. More
+          information about the project is available in a recently published paper in AI magazine,
+          which details the functionality and scope of the project. Available{' '}
+          <a
+            href="https://onlinelibrary.wiley.com/doi/10.1002/aaai.12103"
+            target="_blank"
+            rel="noreferrer"
+            css={tw`text-blue-500 hover:underline`}
+          >
+            here
+          </a>
+        </Typography>
+
+        <Typography css={tw`mb-4`}>
+          We are a group of technologists; developers, designers and economists who are interested
+          in digital democracy, civic engagement and survey techniques that can help better uncover
+          preferences.
+        </Typography>
       </div>
     </div>
   )

@@ -238,7 +238,15 @@ const dashboardMachine =
           return { surveys }
         }),
         fetchDone: assign((ctx, event) => {
-          return { ...ctx, surveys: event.data.map(survey => ({ ...survey, mode: Mode.PILOT })) }
+          return {
+            ...ctx,
+            surveys: event.data.map(survey => {
+              if (survey.status === Status.FINISHED || survey.status === Status.PUBLISHED) {
+                return { ...survey, mode: Mode.PUBLISHED }
+              }
+              return { ...survey, mode: Mode.PILOT }
+            }),
+          }
         }),
         busySurvey: assign((ctx, event) => {
           const surveys = ctx.surveys.map(s => {

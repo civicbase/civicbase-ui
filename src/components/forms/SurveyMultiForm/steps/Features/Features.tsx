@@ -24,7 +24,7 @@ const Features = () => {
           control={control}
           render={({ field }) => (
             <Switch value={field.value} onChange={field.onChange}>
-              Respondents can answer survey more than once
+              Enable respondents to answer the survey more than once.
             </Switch>
           )}
         />
