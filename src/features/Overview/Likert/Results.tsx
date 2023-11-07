@@ -1,44 +1,82 @@
-const ResultTable = () => {
-  return null
-  // const { survey, results } = useAnalytics()
+import tw from 'twin.macro'
 
-  // const getQuestionText = ({ statement }: { statement: string }) => {
-  //   const text = EditorState.createWithContent(convertFromRaw(JSON.parse(statement)))
+import * as Table from '@ui/Table'
+import Typography from '@ui/Typography'
 
-  //   return text.getCurrentContent().getPlainText('\u0001')
-  // }
+import { useSurveyOverview } from 'contexts/Overview'
+import { useSurveyState } from 'contexts/dashboard'
 
-  // return (
-  //   <Table.Main>
-  //     {survey?.likert?.map((question, questionIndex) => (
-  //       <>
-  //         <Table.Head key={question.id}>
-  //           <Table.Row>
-  //             <Table.Header css={tw`flex items-center`}>
-  //               <Typography css={tw`text-brand2`}>{question.id}</Typography> &nbsp; {getQuestionText(question)}
-  //             </Table.Header>
-  //             {[1, 2, 3, 4, 5].map((level) => (
-  //               <Table.Header key={level}>{level}</Table.Header>
-  //             ))}
-  //           </Table.Row>
-  //         </Table.Head>
+import DownloadResults from '../DownloadResults'
 
-  //         {question.items.map((item, itemIndex) => (
-  //           <Table.Body key={item.description}>
-  //             <Table.Row>
-  //               <Table.Data>{item.description}</Table.Data>
-  //               {results &&
-  //                 results.length > 0 &&
-  //                 results[questionIndex][itemIndex].map((result: number) => (
-  //                   <Table.Data key={result}>{result}</Table.Data>
-  //                 ))}
-  //             </Table.Row>
-  //           </Table.Body>
-  //         ))}
-  //       </>
-  //     ))}
-  //   </Table.Main>
-  // )
+enum Mode {
+  PILOT = 'pilot',
+  PUBLISHED = 'published',
+}
+
+const ResultTable = ({ id }: { id: string }) => {
+  const survey = useSurveyState(id)
+  const overview = useSurveyOverview()
+
+  if (!overview || !survey) return null
+
+  const { results } = overview
+
+  return (
+    <div css={tw`m-2`}>
+      <div css={tw`flex justify-end items-center mb-4`}>
+        {Object.keys(results[survey.mode]).length !== 0 && <DownloadResults id={id} />}
+      </div>
+
+      <Table.Main>
+        <Table.Head>
+          <Table.Row>
+            <Table.Header>Question Id</Table.Header>
+            <Table.Header>Sum of all answers</Table.Header>
+          </Table.Row>
+        </Table.Head>
+
+        <Table.Body>
+          {survey.mode === Mode.PILOT &&
+            Object.keys(results.pilot)
+              .sort()
+              .map(row => (
+                <Table.Row key={row}>
+                  <Table.Data>{row}</Table.Data>
+                  <Table.Data>{results.pilot[row]}</Table.Data>
+                </Table.Row>
+              ))}
+
+          {survey.mode === Mode.PUBLISHED &&
+            Object.keys(results.published)
+              .sort()
+              .map(row => (
+                <Table.Row key={row}>
+                  <Table.Data>{row}</Table.Data>
+                  <Table.Data>{results.published[row]}</Table.Data>
+                </Table.Row>
+              ))}
+
+          {survey.mode === Mode.PILOT && Object.keys(results.pilot).length === 0 && (
+            <Table.Row>
+              <Table.Data colSpan={2}>No answers captured in pilot phase</Table.Data>
+            </Table.Row>
+          )}
+
+          {survey.mode === Mode.PUBLISHED && Object.keys(results.published).length === 0 && (
+            <Table.Row>
+              <Table.Data colSpan={2}>No answers captured in published phase</Table.Data>
+            </Table.Row>
+          )}
+        </Table.Body>
+      </Table.Main>
+
+      <div css="ml-3">
+        <Typography css={tw`mt-4 text-sm text-gray-500`}>
+          total respondents: {overview.respondent[survey.mode]}
+        </Typography>
+      </div>
+    </div>
+  )
 }
 
 export default ResultTable

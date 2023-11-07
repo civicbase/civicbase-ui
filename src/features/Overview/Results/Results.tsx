@@ -19,7 +19,7 @@ const Results = () => {
   return (
     <>
       {survey.setup.method === Method.QUADRATIC && <QuadraticResultTable id={surveyId} />}
-      {survey.setup.method === Method.LIKERT && <LikertResultTable />}
+      {survey.setup.method === Method.LIKERT && <LikertResultTable id={surveyId} />}
       {survey.setup.method === Method.CONJOINT && <ConjointResultTable />}
 
       {survey.setup.feedback?.active && (
