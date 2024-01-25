@@ -20,7 +20,7 @@ const RadiusMethod = () => {
         tw`hover:(ring-brand ring-2 cursor-pointer)`,
         methodPreference === 'radius' && tw`focus:(ring-brand ring-2) ring-brand ring-2`,
       ]}
-      onClick={() => setValue('setup.methodPreference', 'radius')}
+      onClick={() => setValue('setup.methodPreference', 'radius', { shouldValidate: true })}
     >
       <div
         css={[

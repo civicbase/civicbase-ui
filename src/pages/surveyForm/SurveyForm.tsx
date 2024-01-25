@@ -19,8 +19,9 @@ const SurveyForm = () => {
   const [state, send] = useActor(dashboardService)
 
   const methods = useForm<SurveyFormProps>({
+    mode: 'all',
     defaultValues: useMemo(() => getSurveyFormDefaultValues(survey), [survey]),
-    // resolver: zodResolver(validationSchema),
+    resolver: zodResolver(validationSchema),
   })
 
   const onSubmit: SubmitHandler<SurveyFormProps> = values => {
@@ -40,7 +41,7 @@ const SurveyForm = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <SurveyMultiForm survey={survey} isLoading={state.context.isBusy} />
+        <SurveyMultiForm survey={survey} />
       </form>
     </FormProvider>
   )

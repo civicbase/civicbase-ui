@@ -21,7 +21,7 @@ const DiamondMethod = () => {
           tw`hover:(ring-brand ring-2 cursor-pointer)`,
           methodPreference === 'diamond' && tw`focus:(ring-brand ring-2) ring-brand ring-2`,
         ]}
-        onClick={() => setValue('setup.methodPreference', 'diamond')}
+        onClick={() => setValue('setup.methodPreference', 'diamond', { shouldValidate: true })}
       >
         <div
           css={[

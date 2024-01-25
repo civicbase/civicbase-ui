@@ -38,15 +38,22 @@ const Dashboard = () => {
           + Create Survey
         </AddButton>
 
-        {(state.context.isCloning || state.context.isCreating) && <EmptyCard key="empty" />}
+        {(state.context.isCloning || state.context.isCreating) && <EmptyCard />}
 
         {surveys
           ?.filter(s => s.setup.topic.toLowerCase().includes(search.toLowerCase()))
           .map((survey: Survey) => (
-            <SurveyCard id={survey.id} key={survey.id} />
+            <div key={survey.id}>
+              <SurveyCard id={survey.id} />
+            </div>
           ))}
 
-        {state.matches('fetching') && [1, 2, 3, 4, 5].map(k => <Skeleton key={k} />)}
+        {state.matches('fetching') &&
+          [1, 2, 3, 4, 5].map(k => (
+            <div key={k}>
+              <Skeleton />
+            </div>
+          ))}
       </div>
     </>
   )

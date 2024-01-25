@@ -76,7 +76,7 @@ const Menu = ({ user }: { user: CivicbaseUser }) => {
               <div css={tw`mobile:hidden max-w-xs truncate`}>
                 {isLoggingOut ? 'Logging out...' : user.name}
               </div>
-              <CiUser size={24} css={tw`sm:hidden`} />
+              <CiUser size={24} tw="sm:hidden" />
             </Popover.Button>
             <Transition {...popperTransitionProps}>
               <Popover.Panel

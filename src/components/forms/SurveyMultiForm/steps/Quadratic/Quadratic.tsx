@@ -14,7 +14,8 @@ import { EditorState } from 'draft-js'
 const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
   const {
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
+    trigger,
   } = useFormContext()
 
   const { fields, append, remove } = useFieldArray({
@@ -43,7 +44,12 @@ const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
                 render={({ field: statementField }) => {
                   return (
                     <TextEditor
-                      onChange={statementField.onChange}
+                      onChange={(e: any) => {
+                        statementField.onChange(e)
+                        if (isDirty) {
+                          trigger('quadratic')
+                        }
+                      }}
                       value={statementField.value}
                       readOnly={isPublished}
                       error={errors.quadratic && !!(errors as any).quadratic[index]}

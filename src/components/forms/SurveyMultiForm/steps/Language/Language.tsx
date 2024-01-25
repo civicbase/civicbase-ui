@@ -34,7 +34,7 @@ const Language = () => {
             <Dropdown
               options={languages}
               value={field.value}
-              onChange={field.onChange}
+              onChange={(e: any) => field.onChange(e)}
               placeholder="Select preferred language"
               modified={isEditing && fieldState.isDirty}
               error={(errors?.language as any)?.jargon}

@@ -36,13 +36,14 @@ const transform = (request: SurveyForm): SurveyBase => {
     transformedRequest.features = features
   }
 
-  if (
-    ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) &&
-    transformedRequest.setup
-  ) {
-    delete transformedRequest.setup.credits
-    delete transformedRequest.language
-  }
+  // TODO: this is not working as it should
+  // if (
+  //   ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) &&
+  //   transformedRequest.setup
+  // ) {
+  //   delete transformedRequest.setup.credits
+  //   delete transformedRequest.language
+  // }
 
   if (welcome && request.message?.welcome) {
     if (welcome.getCurrentContent().hasText()) {

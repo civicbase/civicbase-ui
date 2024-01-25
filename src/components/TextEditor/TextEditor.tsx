@@ -172,7 +172,7 @@ const TextEditor = ({
           modified && tw`border-indigo-600 border-opacity-60`,
           error && tw`border-error-600 border-opacity-60`,
           error && focus && tw`ring-2 ring-red-300 border-red-300`,
-          !readOnly && editorContainer,
+          !readOnly ? (editorContainer as any) : {},
         ]}
       >
         <Editor

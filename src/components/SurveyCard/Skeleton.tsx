@@ -27,7 +27,7 @@ const Skeleton = () => {
         </div>
 
         <div css={tw`flex items-center text-gray-600`}>
-          <VscSymbolMethod size={20} css={tw`mr-2`} />
+          <VscSymbolMethod size={20} tw="mr-2" />
 
           <TextLine css={tw`w-40 h-5`} />
         </div>

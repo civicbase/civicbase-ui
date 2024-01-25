@@ -8,6 +8,7 @@ import {
   RadiusWithoutSubmit,
   DiamondWithoutSubmit,
 } from 'features/Survey/Questions/methods/Quadratic'
+import QuadraticVote from 'quadratic-vote'
 import { QuadraticPreference } from 'types/survey.d'
 
 const Preview = () => {
@@ -22,9 +23,22 @@ const Preview = () => {
   const { method, methodPreference } = survey.setup
 
   if (method === 'Quadratic') {
-    return methodPreference === QuadraticPreference.DIAMOND ? (
-      <DiamondWithoutSubmit survey={survey} />
-    ) : (
+    if (methodPreference === QuadraticPreference.DIAMOND) {
+      const questions = survey.quadratic?.map((question, index) => ({
+        ...question,
+        id: index,
+        questionId: question.id,
+        vote: 0,
+      }))
+
+      return (
+        <QuadraticVote.Provider credits={survey.setup.credits!} questions={questions!}>
+          <DiamondWithoutSubmit survey={survey} />
+        </QuadraticVote.Provider>
+      )
+    }
+
+    return (
       <FormProvider {...methods}>
         <RadiusWithoutSubmit survey={survey} />
       </FormProvider>

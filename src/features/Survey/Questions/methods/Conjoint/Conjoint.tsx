@@ -76,10 +76,7 @@ export const ConjointWithoutSubmit = ({ survey }: { survey: Survey }) => {
                     <AiFillCheckCircle
                       size={24}
                       color={theme`colors.brand2`}
-                      css={[
-                        tw`absolute right-4 top-4 opacity-100`,
-                        tw`transition-all ease-in-out duration-1000`,
-                      ]}
+                      tw="absolute right-4 top-4 opacity-100 transition-all ease-in-out duration-1000"
                     />
                   )}
 

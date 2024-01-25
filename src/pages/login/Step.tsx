@@ -3,8 +3,18 @@ import { ReactElement } from 'react'
 import tw from 'twin.macro'
 
 import Card from 'components/Card'
+import { CSSProp } from 'styled-components'
 
-const Step = ({ children, isActive, ...props }: { children: ReactElement; isActive: boolean }) => {
+const Step = ({
+  children,
+  isActive,
+  css,
+  ...props
+}: {
+  children: ReactElement
+  isActive: boolean
+  css?: CSSProp
+}) => {
   return (
     <Card
       css={[

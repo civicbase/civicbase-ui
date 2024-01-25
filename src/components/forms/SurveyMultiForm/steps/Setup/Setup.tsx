@@ -28,8 +28,7 @@ const Setup = () => {
   const isEditing = getValues('isEditing')
   const isActive = useWatch({ name: 'setup.feedback.active' })
   const method = useWatch({ name: 'setup.method' })
-  const credits = useWatch({ name: 'setup.credits' })
-  const methods: Methods[] = ['Quadratic', 'Likert'] // conjoint is not supported yet
+  const methods: Methods[] = [Method.QUADRATIC, Method.LIKERT] // conjoint is not supported yet
 
   useEffect(() => {
     if (method !== Method.QUADRATIC) {
@@ -41,7 +40,7 @@ const Setup = () => {
     <>
       <Label>Topic *</Label>
       <Input
-        {...register('setup.topic', { required: true })}
+        {...register('setup.topic')}
         error={!!(errors.setup as any)?.topic}
         modified={isEditing && !!dirtyFields?.setup?.topic}
       />
@@ -86,9 +85,11 @@ const Setup = () => {
           )}
         </div>
 
-        {method === Method.QUADRATIC && credits === 100 && (
+        {method === Method.QUADRATIC && (
           <div css={tw`col-span-2`}>
             <Label>Select survey style *</Label>
+            <FieldErrorMessage name="setup.methodPreference" errors={errors} />
+
             <div css={tw`grid grid-cols-2 gap-8 my-4`}>
               <Diamond />
               <Radius />
@@ -104,7 +105,7 @@ const Setup = () => {
               <Switch value={field.value} onChange={field.onChange}>
                 <div css={tw`flex flex-col h-11`}>
                   <Typography>Enable respondent feedback</Typography>
-                  <FieldErrorMessage name="setup.feedback" errors={errors} css={tw`ml-0`} />
+                  <FieldErrorMessage name="setup.feedback" errors={errors} />
                 </div>
               </Switch>
             )}

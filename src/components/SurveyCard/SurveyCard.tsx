@@ -99,13 +99,11 @@ const CompactedCard = ({ id }: { id: string }) => {
         </div>
 
         <div css={tw`flex items-center text-gray-600`}>
-          {survey?.setup.method === Method.QUADRATIC && (
-            <VscSymbolMethod size={20} css={tw`mr-2`} />
-          )}
+          {survey?.setup.method === Method.QUADRATIC && <VscSymbolMethod size={20} tw="mr-2" />}
 
-          {survey?.setup.method === Method.CONJOINT && <VscSymbolField size={20} css={tw`mr-2`} />}
+          {survey?.setup.method === Method.CONJOINT && <VscSymbolField size={20} tw="mr-2" />}
 
-          {survey?.setup.method === Method.LIKERT && <BiPyramid size={20} css={tw`mr-2`} />}
+          {survey?.setup.method === Method.LIKERT && <BiPyramid size={20} tw="mr-2" />}
 
           <Typography css={tw``}>{survey?.setup.method}</Typography>
         </div>
