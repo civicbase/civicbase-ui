@@ -52,7 +52,7 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
       {
         id: 'review',
         label: 'Review',
-        Component: <div>Review</div>,
+        Component: <Forms.Review />,
       },
     ]
 

@@ -40,7 +40,7 @@ const Single = ({ question, questionIndex }: { question: Likert; questionIndex: 
           </RadioGroup>
         )}
       />
-      <Typography>{question.label1 ?? 'Agree'}</Typography>
+      <Typography>{question.label2 ?? 'Agree'}</Typography>
     </div>
   )
 }

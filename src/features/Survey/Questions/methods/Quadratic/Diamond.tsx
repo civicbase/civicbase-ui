@@ -1,7 +1,5 @@
 import CountUp from 'react-countup'
 
-import tw from 'twin.macro'
-
 import Button from '@ui/Button'
 import Typography from '@ui/Typography'
 
@@ -90,12 +88,6 @@ export const DiamondWithoutSubmit = ({ survey }: { survey: Survey }) => {
             </div>
           </div>
         ))}
-
-        <div tw="flex justify-center mt-32">
-          <Button type="submit" variant="primary">
-            Submit
-          </Button>
-        </div>
       </div>
     </div>
   )
@@ -118,6 +110,12 @@ const Wrapper = () => {
   return (
     <QuadraticVote.Provider credits={survey.setup.credits!} questions={questions!}>
       <DiamondWithoutSubmit survey={survey} />
+
+      <div tw="flex justify-center mt-32">
+        <Button type="submit" variant="primary">
+          Submit
+        </Button>
+      </div>
     </QuadraticVote.Provider>
   )
 }
