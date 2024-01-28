@@ -16,7 +16,7 @@ const SurveyForm = () => {
 
   const survey = location.state as Survey
   const dashboardService = useDashboard()
-  const [state, send] = useActor(dashboardService)
+  const [, send] = useActor(dashboardService)
 
   const methods = useForm<SurveyFormProps>({
     mode: 'all',
