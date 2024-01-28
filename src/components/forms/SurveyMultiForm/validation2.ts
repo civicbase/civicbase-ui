@@ -87,6 +87,18 @@ const validationSchema = z.object({
         message: 'Custom validation failed', // Simple string for now
       },
     ),
+  features: z
+    .object({
+      randomQuestions: z.boolean().optional(),
+      multipleAnswerFromSameSource: z.boolean().optional(),
+    })
+    .optional(),
+  message: z
+    .object({
+      welcome: z.any().optional(),
+      completion: z.any().optional(),
+    })
+    .optional(),
 })
 
 export default validationSchema
