@@ -4,9 +4,10 @@ import { useFormContext } from 'react-hook-form'
 import Button from '@ui/Button'
 import Typography from '@ui/Typography'
 
+import TextEditor from 'components/TextEditor'
 import { useDialog } from 'contexts/dialog'
 import { useSurvey, useSurveyState } from 'contexts/survey'
-import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import usePrevious from 'hooks/use-previos'
 import { Visibility } from 'machines/dialogMachine'
@@ -53,14 +54,15 @@ export const DiamondWithoutSubmit = ({ survey }: { survey: Survey }) => {
           >
             <div tw="text-center my-6" style={{ maxWidth: 600 }}>
               <div>
-                <Typography tw="text-red-400 mb-2">
+                <Typography tw="mb-2">
                   {i + 1} / {questions.length}
                 </Typography>
               </div>
-              <Editor
-                editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(q.statement)))}
+              <TextEditor
+                value={EditorState.createWithContent(convertFromRaw(JSON.parse(q.statement)))}
                 onChange={() => {}}
                 readOnly
+                enableImage
               />
             </div>
 

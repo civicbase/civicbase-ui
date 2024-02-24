@@ -11,7 +11,30 @@ const About = () => {
       <img css={tw`w-[350px] mobile:w-[200px]`} src={Logo} alt="logo" />
 
       <div tw="mobile:p-4">
-        <Title css={tw`mt-24 mb-12`}>FAQs</Title>
+        <Title css={tw`mt-24 mb-12`}>About</Title>
+
+        <Typography css={tw`mb-4`}>
+          Civicbase is an open-source, online platform for deploying Quadratic Voting Survey for
+          Research (QVSR) and other survey techniques at the forefront of civic engagement. More
+          information about the project is available in a recently published paper in AI magazine,
+          which details the functionality and scope of the project. Available{' '}
+          <a
+            href="https://onlinelibrary.wiley.com/doi/10.1002/aaai.12103"
+            target="_blank"
+            rel="noreferrer"
+            css={tw`text-blue-500 hover:underline`}
+          >
+            here
+          </a>
+        </Typography>
+
+        <Typography css={tw`mb-4`}>
+          We are a group of technologists; developers, designers and economists who are interested
+          in digital democracy, civic engagement and survey techniques that can help better uncover
+          preferences.
+        </Typography>
+
+        <Title css={tw`mt-8 mb-12`}>FAQs</Title>
 
         <Subtitle css={tw`mb-6`}>What is QVSR?</Subtitle>
 
@@ -121,29 +144,6 @@ const About = () => {
             </a>{' '}
           </li>
         </ul>
-
-        <Title css={tw`mt-8 mb-12`}>About</Title>
-
-        <Typography css={tw`mb-4`}>
-          Civicbase is an open-source, online platform for deploying Quadratic Voting Survey for
-          Research (QVSR) and other survey techniques at the forefront of civic engagement. More
-          information about the project is available in a recently published paper in AI magazine,
-          which details the functionality and scope of the project. Available{' '}
-          <a
-            href="https://onlinelibrary.wiley.com/doi/10.1002/aaai.12103"
-            target="_blank"
-            rel="noreferrer"
-            css={tw`text-blue-500 hover:underline`}
-          >
-            here
-          </a>
-        </Typography>
-
-        <Typography css={tw`mb-4`}>
-          We are a group of technologists; developers, designers and economists who are interested
-          in digital democracy, civic engagement and survey techniques that can help better uncover
-          preferences.
-        </Typography>
       </div>
     </div>
   )

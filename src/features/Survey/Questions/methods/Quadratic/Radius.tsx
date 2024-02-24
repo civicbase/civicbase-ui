@@ -150,7 +150,7 @@ const Radius = ({ survey }: { survey: Survey }) => {
     <div>
       <RadiusWithoutSubmit survey={survey} />
 
-      <div css={tw`flex justify-center`}>
+      <div css={tw`flex justify-center mt-32`}>
         <Button
           onClick={handleSubmit}
           disabled={false} // TODO: if available credits is equal the inital number of credits

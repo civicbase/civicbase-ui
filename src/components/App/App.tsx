@@ -72,7 +72,7 @@ const Wrapper = () => {
       signInSuccess: assign(ctx => {
         bannerService.send({
           type: 'SHOW_BANNER',
-          text: 'Please verify your email',
+          text: 'Please verify your email and check your spam folder if necessary.',
           visibility: Visibility.SUCCESS,
         })
         return ctx

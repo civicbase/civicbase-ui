@@ -44,7 +44,7 @@ const validationSchema = z
           .optional(),
         token: z.string({ invalid_type_error: 'Preferred Token must be selected' }).optional(),
         customToken: z
-          .string({ invalid_type_error: 'Custom Credit Language is required' })
+          .string({ invalid_type_error: 'Custom Token Language is required' })
           .nullable()
           .optional(),
       })
@@ -59,7 +59,7 @@ const validationSchema = z
         path: ['thumbsDown'],
       })
       .refine(data => !(data?.token === 'Custom' && data.customToken === ''), {
-        message: 'Custom Credit Language is required',
+        message: 'Custom Token Language is required',
         path: ['customToken'],
       }),
     message: z

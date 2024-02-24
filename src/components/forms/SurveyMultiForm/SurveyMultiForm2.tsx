@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import tw from 'twin.macro'
@@ -7,8 +7,10 @@ import { Tab } from '@headlessui/react'
 import { Method, Survey } from 'types/survey.d'
 
 import * as Forms from './steps'
+import { languageSchema, likertSchema, quadraticSchema, setupSchema } from './validation2'
 
 function SurveyMultiForm({ survey }: { survey: Survey }) {
+  const [isvalid, setValid] = useState(false)
   const {
     watch,
     trigger,
@@ -16,6 +18,31 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
   } = useFormContext()
   const selectedStep = useRef('setup')
   const method = watch('setup.method')
+  const state = watch()
+
+  useEffect(() => {
+    const setupResult = setupSchema.safeParse(state.setup)
+
+    if (state.setup.method === Method.QUADRATIC) {
+      const quadraticResult = quadraticSchema.safeParse(state.quadratic)
+      const languageResult = languageSchema.safeParse(state.language)
+
+      if (setupResult.success && quadraticResult.success && languageResult.success) {
+        setValid(true)
+      } else {
+        setValid(false)
+      }
+    } else if (state.setup.method === Method.LIKERT) {
+      const likertResult = likertSchema.safeParse(state.likert)
+      if (likertResult.success) {
+        setValid(true)
+      } else {
+        setValid(false)
+      }
+    } else {
+      setValid(false)
+    }
+  }, [state])
 
   const getSteps = useCallback(() => {
     const steps = [
@@ -26,7 +53,7 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
       },
       {
         id: 'quadratic',
-        label: 'Quadratic',
+        label: 'Quadratic Questions',
         Component: <Forms.Quadratic isPublished={survey?.status === 'published'} />,
       },
       {
@@ -36,12 +63,12 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
       },
       {
         id: 'likert',
-        label: 'Likert',
+        label: 'Likert Questions',
         Component: <Forms.Likert isPublished={survey?.status === 'published'} />,
       },
       {
         id: 'message',
-        label: 'Message',
+        label: 'Messages',
         Component: <Forms.Messages />,
       },
       {
@@ -76,10 +103,10 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
   return (
     <div tw="w-full px-2 py-16 sm:px-0">
       <Tab.Group onChange={handleChange}>
-        <Tab.List tw="flex space-x-1 rounded-xl bg-brand p-1 sticky top-[70px] z-50">
+        <Tab.List tw="flex space-x-1 rounded-xl bg-brand p-1 sticky top-[70px] z-40">
           {steps.map(step => (
             <div key={step.id} tw="w-full relative">
-              <Tab as={Fragment}>
+              <Tab tw="w-full" disabled={step.id === 'review' && !isvalid}>
                 {({ selected }) => {
                   return (
                     <div
@@ -113,7 +140,7 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
             type="submit"
             css={[
               tw`text-white !bg-gray-500`,
-              isDirty && isValid && tw`!bg-green-500 uppercase border-2 border-green-300`,
+              isDirty && isValid && tw`!bg-green-500 border-2 border-green-300`,
               tw`rounded p-0 w-full max-h-[260px]`,
               isDirty && isValid ? tw`hover:!bg-green-400 font-bold` : tw`hover:!bg-gray-400`,
             ]}

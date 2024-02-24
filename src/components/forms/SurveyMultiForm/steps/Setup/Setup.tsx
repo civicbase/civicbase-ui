@@ -104,7 +104,7 @@ const Setup = () => {
             render={({ field }) => (
               <Switch value={field.value} onChange={field.onChange}>
                 <div css={tw`flex flex-col h-11`}>
-                  <Typography>Enable respondent feedback</Typography>
+                  <Typography>Enable short answer text questions</Typography>
                   <FieldErrorMessage name="setup.feedback" errors={errors} />
                 </div>
               </Switch>
