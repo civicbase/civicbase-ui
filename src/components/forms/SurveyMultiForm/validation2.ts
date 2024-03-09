@@ -135,15 +135,31 @@ const validationSchema = z
           code: 'custom',
         })
       }
-    } else if (data.likert !== undefined) {
-      // For methods other than LIKERT, ensure Likert is not present
-      // if (data.likert !== undefined) {
-      ctx.addIssue({
-        path: ['likert'],
-        message: 'Likert section must be omitted for methods other than LIKERT',
-        code: 'custom',
-      })
-      // }
+    } else if (data.setup.method === Method.QUADRATIC) {
+      if (!data.language?.jargon) {
+        ctx.addIssue({
+          path: ['language.jargon'],
+          message: 'Select preferred language',
+          code: 'custom',
+        })
+      }
+
+      if (data.language?.jargon === 'Custom') {
+        if (!data.language?.thumbsUp) {
+          ctx.addIssue({
+            path: ['language.thumbsUp'],
+            message: 'Agree is required',
+            code: 'custom',
+          })
+        }
+        if (!data.language?.thumbsDown) {
+          ctx.addIssue({
+            path: ['language.thumbsDown'],
+            message: 'Disagree is required',
+            code: 'custom',
+          })
+        }
+      }
     }
   })
 

@@ -6,6 +6,7 @@ import {
   RadiusWithoutSubmit,
   DiamondWithoutSubmit,
 } from 'features/Survey/Questions/methods/Quadratic'
+import useQuadratic from 'hooks/use-quadratic'
 import QuadraticVote from 'quadratic-vote'
 import { QuadraticPreference } from 'types/survey.d'
 
@@ -19,6 +20,7 @@ function Review() {
   const rawSurvey: any = methods.watch()
   const survey: any = transform(rawSurvey)
   survey.mode = 'pilot'
+  const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
 
   //   TODO: should verify if the survey is valid and display a message in case the survey is not valid to indicate to the user that he needs to have some fields filled in
 
@@ -40,7 +42,13 @@ function Review() {
 
     return (
       <FormProvider {...methods}>
-        <RadiusWithoutSubmit survey={survey} />
+        <RadiusWithoutSubmit
+          survey={survey}
+          questions={questions as any}
+          availableCredits={availableCredits}
+          canVote={canVote}
+          vote={vote}
+        />
       </FormProvider>
     )
   }

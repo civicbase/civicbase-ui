@@ -8,6 +8,7 @@ import {
   RadiusWithoutSubmit,
   DiamondWithoutSubmit,
 } from 'features/Survey/Questions/methods/Quadratic'
+import useQuadratic from 'hooks/use-quadratic'
 import QuadraticVote from 'quadratic-vote'
 import { QuadraticPreference } from 'types/survey.d'
 
@@ -15,6 +16,7 @@ const Preview = () => {
   const { surveyId } = useParams()
   const survey = useSurveyState(surveyId!!)
   const methods = useForm()
+  const { questions, availableCredits, vote, canVote } = useQuadratic(survey!)
 
   if (!survey) {
     return null
@@ -40,7 +42,13 @@ const Preview = () => {
 
     return (
       <FormProvider {...methods}>
-        <RadiusWithoutSubmit survey={survey} />
+        <RadiusWithoutSubmit
+          survey={survey}
+          questions={questions as any}
+          availableCredits={availableCredits}
+          vote={vote}
+          canVote={canVote}
+        />
       </FormProvider>
     )
   }

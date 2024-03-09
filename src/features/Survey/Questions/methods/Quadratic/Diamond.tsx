@@ -13,6 +13,7 @@ import usePrevious from 'hooks/use-previos'
 import { Visibility } from 'machines/dialogMachine'
 import QuadraticVote, { useQuadraticVote } from 'quadratic-vote'
 import { Survey } from 'types/survey.d'
+import shuffle from 'utilities/shuffle'
 
 export const DiamondWithoutSubmit = ({ survey }: { survey: Survey }) => {
   const { credits, availableCredits, questions, vote, reset } = useQuadraticVote()
@@ -100,6 +101,7 @@ export const DiamondWithoutSubmit = ({ survey }: { survey: Survey }) => {
 
 const Wrapper = ({ survey }: { survey: any }) => {
   const { availableCredits, questions } = useQuadraticVote()
+
   const surveyService = useSurvey()
   const { getValues } = useFormContext()
   const dialogService = useDialog()
@@ -111,6 +113,23 @@ const Wrapper = ({ survey }: { survey: any }) => {
   const handleSubmit = () => {
     const feedback = getValues('feedback')
 
+    const values = {
+      leftCredits: availableCredits,
+      questions: questions.map(
+        (q, index) =>
+          ({
+            credits: q.vote * q.vote,
+            id: `Q${q.id + 1}`,
+            order: index,
+            vote: q.vote,
+          } as any),
+      ),
+      feedback: feedback?.map((f: { answer: string }, i: number) => ({
+        ...f,
+        id: `F${i}`,
+      })),
+    }
+
     if (availableCredits !== 0) {
       dialogService.send({
         type: 'OPEN',
@@ -120,43 +139,17 @@ const Wrapper = ({ survey }: { survey: any }) => {
         } left, please confirm if you want to
           submit your answer anyway.`,
         visibility: Visibility.CONFIRMATION,
-        callback: () =>
+        callback: () => {
           surveyService.send({
             type: 'SUBMIT',
-            values: {
-              leftCredits: availableCredits,
-              questions: questions.map(
-                q =>
-                  ({
-                    credits: q.credits,
-                    id: q.id,
-                    order: q.order,
-                    vote: q.vote,
-                  } as any),
-              ),
-              feedback: feedback?.map((f: { answer: string }, i: number) => ({
-                ...f,
-                id: `F${i}`,
-              })),
-            },
-          }),
+            values,
+          })
+        },
       })
     } else {
       surveyService.send({
         type: 'SUBMIT',
-        values: {
-          leftCredits: availableCredits,
-          questions: questions.map(
-            q =>
-              ({
-                credits: q.credits,
-                id: q.id,
-                order: q.order,
-                vote: q.vote,
-              } as any),
-          ),
-          feedback: feedback?.map((f: { answer: string }, i: number) => ({ ...f, id: `F${i}` })),
-        },
+        values,
       })
     }
   }
@@ -165,7 +158,7 @@ const Wrapper = ({ survey }: { survey: any }) => {
     <>
       <DiamondWithoutSubmit survey={survey} />
 
-      <div tw="flex justify-center mt-32">
+      <div tw="flex justify-center pb-32 mt-32">
         <Button onClick={handleSubmit} variant="primary">
           Submit
         </Button>
@@ -181,12 +174,16 @@ const WrapperProvider = () => {
     return null
   }
 
-  const questions = survey.quadratic?.map((question, index) => ({
+  let questions = survey.quadratic?.map((question, index) => ({
     ...question,
     id: index,
     questionId: question.id,
     vote: 0,
   }))
+
+  if (questions && survey.features?.randomQuestions) {
+    questions = shuffle(questions)
+  }
 
   return (
     <QuadraticVote.Provider credits={survey.setup.credits!} questions={questions!}>

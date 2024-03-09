@@ -104,37 +104,43 @@ function SurveyMultiForm({ survey }: { survey: Survey }) {
     <div tw="w-full px-2 py-16 sm:px-0">
       <Tab.Group onChange={handleChange}>
         <Tab.List tw="flex space-x-1 rounded-xl bg-brand p-1 sticky top-[70px] z-40">
-          {steps.map(step => (
-            <div key={step.id} tw="w-full relative">
-              <Tab tw="w-full" disabled={step.id === 'review' && !isvalid}>
-                {({ selected }) => {
-                  return (
-                    <div
-                      css={[
-                        tw`cursor-pointer flex justify-center items-center h-full`,
-                        tw`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-white`,
-                        tw`ring-brand/60 focus:outline-none focus:ring-2`,
-                        selected
-                          ? tw`bg-white text-brand shadow`
-                          : tw`text-white hover:bg-white/[0.12] hover:text-white`,
-                      ]}
-                    >
-                      {step.label}
-                    </div>
-                  )
-                }}
-              </Tab>
+          {steps.map(step => {
+            const errorLength = Object.keys(errors[step.id] || {}).filter(
+              key => !['message', 'ref', 'type'].includes(key),
+            ).length
 
-              {Object.keys(errors[step.id] || {}).length > 0 && (
-                <>
-                  <span tw="sr-only">Notifications</span>
-                  <div tw="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full -top-2 right-0">
-                    {Object.keys(errors[step.id] || {}).length}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
+            return (
+              <div key={step.id} tw="w-full relative">
+                <Tab tw="w-full" disabled={step.id === 'review' && !isvalid}>
+                  {({ selected }) => {
+                    return (
+                      <div
+                        css={[
+                          tw`cursor-pointer flex justify-center items-center h-full`,
+                          tw`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-white`,
+                          tw`ring-brand/60 focus:outline-none focus:ring-2`,
+                          selected
+                            ? tw`bg-white text-brand shadow`
+                            : tw`text-white hover:bg-white/[0.12] hover:text-white`,
+                        ]}
+                      >
+                        {step.label}
+                      </div>
+                    )
+                  }}
+                </Tab>
+
+                {errorLength > 0 && (
+                  <>
+                    <span tw="sr-only">Notifications</span>
+                    <div tw="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full -top-2 right-0">
+                      {errorLength}
+                    </div>
+                  </>
+                )}
+              </div>
+            )
+          })}
 
           <button
             type="submit"

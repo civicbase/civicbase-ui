@@ -228,9 +228,7 @@ const surveyMachine =
             time: ctx.meta,
           }
 
-          if (event.values.leftCredits) {
-            answer.leftCredits = event.values.leftCredits
-          }
+          answer.leftCredits = event.values.leftCredits
 
           if (ctx.survey.setup.feedback?.active) {
             answer.feedback = event.values.feedback?.filter((f: any) => f.answer !== '')
