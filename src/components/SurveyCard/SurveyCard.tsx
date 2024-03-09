@@ -99,13 +99,11 @@ const CompactedCard = ({ id }: { id: string }) => {
         </div>
 
         <div css={tw`flex items-center text-gray-600`}>
-          {survey?.setup.method === Method.QUADRATIC && (
-            <VscSymbolMethod size={20} css={tw`mr-2`} />
-          )}
+          {survey?.setup.method === Method.QUADRATIC && <VscSymbolMethod size={20} tw="mr-2" />}
 
-          {survey?.setup.method === Method.CONJOINT && <VscSymbolField size={20} css={tw`mr-2`} />}
+          {survey?.setup.method === Method.CONJOINT && <VscSymbolField size={20} tw="mr-2" />}
 
-          {survey?.setup.method === Method.LIKERT && <BiPyramid size={20} css={tw`mr-2`} />}
+          {survey?.setup.method === Method.LIKERT && <BiPyramid size={20} tw="mr-2" />}
 
           <Typography css={tw``}>{survey?.setup.method}</Typography>
         </div>
@@ -118,8 +116,8 @@ const CompactedCard = ({ id }: { id: string }) => {
           </MenuItem>
         )}
 
-        <MenuItem label="Preview" handleClick={handlePreview} disabled={survey?.isBusy}>
-          <FiEye size={20} />
+        <MenuItem label="Clone" handleClick={handleClone} disabled={survey?.isBusy}>
+          <CloneIcon />
         </MenuItem>
 
         {survey?.status !== 'finished' && (
@@ -127,6 +125,10 @@ const CompactedCard = ({ id }: { id: string }) => {
             <FiPower size={20} />
           </MenuItem>
         )}
+
+        <MenuItem label="Preview" handleClick={handlePreview} disabled={survey?.isBusy}>
+          <FiEye size={20} />
+        </MenuItem>
 
         {survey?.status === 'pilot' && (
           <MenuItem label="Publish" handleClick={handlePublish} disabled={survey?.isBusy}>
@@ -136,10 +138,6 @@ const CompactedCard = ({ id }: { id: string }) => {
 
         <MenuItem label={copied ? 'Copied Link' : 'Copy link'} handleClick={handleCopy}>
           {copied ? <FiCheck size={20} color={theme`colors.bgColor1`} /> : <FaRegCopy size={20} />}
-        </MenuItem>
-
-        <MenuItem label="Clone" handleClick={handleClone} disabled={survey?.isBusy}>
-          <CloneIcon />
         </MenuItem>
       </div>
     </div>

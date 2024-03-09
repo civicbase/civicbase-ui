@@ -16,6 +16,7 @@ const Dashboard = lazy(() => import('pages/dashboard'))
 const NotFound = lazy(() => import('pages/404'))
 const Overview = lazy(() => import('pages/overview'))
 const Preview = lazy(() => import('pages/preview'))
+const Survey = lazy(() => import('pages/survey'))
 const PrivacyPolicy = lazy(() => import('pages/privacy-policy'))
 const Profile = lazy(() => import('pages/profile'))
 const SurveyForm = lazy(() => import('pages/surveyForm'))
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: COMMON_ROUTES.ABOUT,
         element: <About />,
+      },
+      {
+        path: AUTHENTICATED_ROUTES.SURVEY,
+        element: <Survey />,
       },
       {
         path: '*',

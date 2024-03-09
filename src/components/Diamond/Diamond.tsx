@@ -11,7 +11,6 @@ export const DiamondSVG = ({ index }: { index: string }) => {
       viewBox="0 0 220 220"
       xmlns="http://www.w3.org/2000/svg"
       overflow="inherit"
-      style={{ zIndex: -10 }}
     >
       <g transform="translate(220,110)">
         <circle r="5" cx="-20" cy="0" fill="#cbd5e1" id={`diamond-${index}10`} />

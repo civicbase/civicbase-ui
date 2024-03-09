@@ -10,6 +10,8 @@ import Transition from 'components/Transition'
 import { useAuth, useIsLogingOut } from 'contexts/auth'
 import { CivicbaseUser } from 'types/user'
 
+import UserAvatar from './UserAvatar'
+
 const popperTransitionProps = {
   enter: tw`transition ease-out duration-200`,
   enterFrom: tw`opacity-0 translate-y-1`,
@@ -62,7 +64,7 @@ const Menu = ({ user }: { user: CivicbaseUser }) => {
   const handleMouseLeave = () => setHovered('')
 
   return (
-    <div className="fixed top-16 w-full max-w-sm px-4">
+    <div className="fixed top-16 w-full max-w-sm px-4 z-50">
       <Popover className="relative">
         {() => (
           <>
@@ -73,10 +75,7 @@ const Menu = ({ user }: { user: CivicbaseUser }) => {
                 tw`focus:(outline-none ring-gray-200 ring-inset ring-4)`,
               ]}
             >
-              <div css={tw`mobile:hidden max-w-xs truncate`}>
-                {isLoggingOut ? 'Logging out...' : user.name}
-              </div>
-              <CiUser size={24} css={tw`sm:hidden`} />
+              <UserAvatar />
             </Popover.Button>
             <Transition {...popperTransitionProps}>
               <Popover.Panel

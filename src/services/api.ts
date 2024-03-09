@@ -1,5 +1,4 @@
 import { BodyRequest } from 'types/request.d'
-import storage from 'utilities/storage'
 
 interface Request {
   body?: BodyRequest
@@ -9,10 +8,6 @@ interface Request {
 
 const client = async (endpoint: string, { body, ...other }: Request = {}) => {
   const headers: HeadersInit = { 'content-type': 'application/json' }
-
-  if (storage.hasToken()) {
-    headers.Authorization = `Bearer ${storage.getToken()}`
-  }
 
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
@@ -45,16 +40,11 @@ const client = async (endpoint: string, { body, ...other }: Request = {}) => {
 export const file = async (endpoint: string, { body, ...other }: Request = {}) => {
   const headers: HeadersInit = { 'content-type': 'application/json' }
 
-  if (storage.hasToken()) {
-    headers.Authorization = `Bearer ${storage.getToken()}`
-  }
-
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...other,
     headers: {
       ...headers,
-      ...other.headers,
     },
 
     credentials: 'include',

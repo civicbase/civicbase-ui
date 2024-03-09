@@ -27,7 +27,7 @@ const TermsConditions = () => {
       <div css={tw`[border:.5px_solid] border-gray-200 my-4`} />
       <Typography css={tw`text-gray-500`}>This Application is provided by:</Typography>
       <Typography css={tw`text-gray-500 my-2`}>Metanoia Holdings Pty Ltd</Typography>
-      <Typography css={tw`text-gray-500`}>Owner contact email: madeline@civicbase.io</Typography>
+      <Typography css={tw`text-gray-500`}>Owner contact email: madelineb@protonmail.com</Typography>
       {/* TERMS OF USE */}
       <Title css={tw`my-8 text-center`}>TERMS OF USE</Title>
       <Typography css={tw`text-gray-500`}>

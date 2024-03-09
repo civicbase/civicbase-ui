@@ -13,16 +13,16 @@ type BarProps = {
 
 const Bar = ({ onSearch }: BarProps) => {
   return (
-    <div css={tw`flex p-1 rounded-lg bg-gradient-to-b from-brand/60 to-brand/80`}>
+    <div css={tw`flex p-1 rounded-lg bg-gradient-to-b from-gray-200 to-gray-300`}>
       <div css={tw`flex items-center mx-2 sm:mx-4`}>
-        <BsSearch color={theme('colors.white')} />
+        <BsSearch color={theme('colors.gray[600]')} />
       </div>
 
       <Input onChange={e => onSearch(e.target.value)} />
 
       <div tw="flex items-center sm:hidden">
         <IconButton>
-          <BsThreeDotsVertical color={theme('colors.white')} />
+          <BsThreeDotsVertical color={theme('colors.gray[800]')} />
         </IconButton>
       </div>
 

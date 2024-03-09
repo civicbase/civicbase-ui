@@ -30,7 +30,7 @@ const FeedbackQuestions = () => {
         return (
           <div key={item.id} css={tw`my-2 flex`}>
             <div css={tw`flex-1`}>
-              <Label>Feedback Question {index + 1} *</Label>
+              <Label>Short answer text question {index + 1} *</Label>
 
               <FormInput
                 name={`setup.feedback.questions.${index}.question`}
@@ -54,7 +54,7 @@ const FeedbackQuestions = () => {
         )
       })}
       <AddButton css={tw`h-12 mt-2`} onClick={() => append({ question: '' })}>
-        + Add feedback question
+        + Add short answer question
       </AddButton>
     </div>
   )

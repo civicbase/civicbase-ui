@@ -33,12 +33,6 @@ const Login = () => {
           tw`bg-gradient-to-tr from-brand via-brand to-brand2`,
         ]}
       >
-        <div css={tw`w-full flex justify-end absolute -top-8 right-4`}>
-          <Link to="/about" css={tw`text-blue-500 hover:underline`}>
-            About
-          </Link>
-        </div>
-
         <div css={tw`text-center mt-4`}>
           <Header isActive={state.matches('login')}>
             <div css={tw`flex justify-center`}>
@@ -87,13 +81,23 @@ const Login = () => {
       </Card>
 
       <div css={tw`flex justify-center mt-16 z-50 mobile:hidden`}>
-        <a href="https://github.com/civicbase/civicbase-ui" rel="noreferrer" target="_blank">
+        <a
+          href="https://github.com/civicbase"
+          rel="noreferrer"
+          target="_blank"
+          aria-label="Visit Civicbase UI Repository"
+        >
           <IconButton css={tw`z-50`}>
             <BsGithub size={24} />
           </IconButton>
         </a>
 
-        <a href="https://www.linkedin.com/company/civicbase/" rel="noreferrer" target="_blank">
+        <a
+          href="https://www.linkedin.com/company/civicbase/"
+          rel="noreferrer"
+          target="_blank"
+          aria-label="Visit Civicbase LinkedIn"
+        >
           <IconButton onClick={() => {}}>
             <BsLinkedin size={24} />
           </IconButton>

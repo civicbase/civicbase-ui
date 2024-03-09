@@ -14,13 +14,26 @@ import { useSurvey } from 'contexts/survey'
 import { convertFromRaw, EditorState } from 'draft-js'
 import useQuadratic from 'hooks/use-quadratic'
 import { Visibility } from 'machines/dialogMachine'
+import { Question } from 'quadratic-vote'
 import { Survey } from 'types/survey'
 
 import FeedbackQuestions from '../../../FeedbackQuestions'
 
-export const RadiusWithoutSubmit = ({ survey }: { survey: Survey }) => {
-  const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
+interface RadiusWithoutSubmitProps {
+  survey: Survey
+  questions: Question[]
+  availableCredits: number
+  vote: (index: number, vote: number) => void
+  canVote: (index: number, vote: number) => boolean
+}
 
+export const RadiusWithoutSubmit = ({
+  survey,
+  questions,
+  availableCredits,
+  vote,
+  canVote,
+}: RadiusWithoutSubmitProps) => {
   if (!survey.language) {
     return null // type checking
   }
@@ -89,7 +102,7 @@ export const RadiusWithoutSubmit = ({ survey }: { survey: Survey }) => {
 
 const Radius = ({ survey }: { survey: Survey }) => {
   const dialogService = useDialog()
-  const { questions, availableCredits } = useQuadratic(survey)
+  const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { getValues } = useFormContext()
   const surveyService = useSurvey()
 
@@ -101,6 +114,20 @@ const Radius = ({ survey }: { survey: Survey }) => {
 
   const handleSubmit = () => {
     const feedback = getValues('feedback')
+
+    const values = {
+      leftCredits: availableCredits,
+      questions: questions.map(q => ({
+        credits: q.credits,
+        id: q.id,
+        order: q.order,
+        vote: q.vote,
+      })),
+      feedback: feedback?.map((f: { answer: string }, i: number) => ({
+        ...f,
+        id: `F${i}`,
+      })),
+    }
 
     if (availableCredits !== 0) {
       dialogService.send({
@@ -114,43 +141,28 @@ const Radius = ({ survey }: { survey: Survey }) => {
         callback: () =>
           surveyService.send({
             type: 'SUBMIT',
-            values: {
-              leftCredits: availableCredits,
-              questions: questions.map(q => ({
-                credits: q.credits,
-                id: q.id,
-                order: q.order,
-                vote: q.vote,
-              })),
-              feedback: feedback?.map((f: { answer: string }, i: number) => ({
-                ...f,
-                id: `F${i}`,
-              })),
-            },
+            values,
           }),
       })
     } else {
       surveyService.send({
         type: 'SUBMIT',
-        values: {
-          leftCredits: availableCredits,
-          questions: questions.map(q => ({
-            credits: q.credits,
-            id: q.id,
-            order: q.order,
-            vote: q.vote,
-          })),
-          feedback: feedback?.map((f: { answer: string }, i: number) => ({ ...f, id: `F${i}` })),
-        },
+        values,
       })
     }
   }
 
   return (
     <div>
-      <RadiusWithoutSubmit survey={survey} />
+      <RadiusWithoutSubmit
+        survey={survey}
+        questions={questions as any}
+        availableCredits={availableCredits}
+        vote={vote}
+        canVote={canVote}
+      />
 
-      <div css={tw`flex justify-center`}>
+      <div css={tw`flex justify-center mt-32 pb-32`}>
         <Button
           onClick={handleSubmit}
           disabled={false} // TODO: if available credits is equal the inital number of credits

@@ -44,7 +44,7 @@ const validationSchema = z
           .optional(),
         token: z.string({ invalid_type_error: 'Preferred Token must be selected' }).optional(),
         customToken: z
-          .string({ invalid_type_error: 'Custom Credit Language is required' })
+          .string({ invalid_type_error: 'Custom Token Language is required' })
           .nullable()
           .optional(),
       })
@@ -59,7 +59,7 @@ const validationSchema = z
         path: ['thumbsDown'],
       })
       .refine(data => !(data?.token === 'Custom' && data.customToken === ''), {
-        message: 'Custom Credit Language is required',
+        message: 'Custom Token Language is required',
         path: ['customToken'],
       }),
     message: z
@@ -105,14 +105,22 @@ const validationSchema = z
         z
           .object({
             id: z.string().optional(),
+            method: z.string(),
             statement: z.any(),
-            items: z.array(
-              z.object({
-                description: z
-                  .string()
-                  .min(1, { message: 'Item description must have more than 1 characters' }),
-              }),
-            ),
+            from: z.number().optional(),
+            to: z.number().optional(),
+            label1: z.string().optional(),
+            label2: z.string().optional(),
+            rows: z.any().optional(),
+            columns: z.any().optional(),
+
+            // items: z.array(
+            //   z.object({
+            //     description: z
+            //       .string()
+            //       .min(1, { message: 'Item description must have more than 1 characters' }),
+            //   }),
+            // ),
           })
           .refine(data => !(data.statement.getCurrentContent().getPlainText('\u0001') === ''), {
             message: 'This question is required',

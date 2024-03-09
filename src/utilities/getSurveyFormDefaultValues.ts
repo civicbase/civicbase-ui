@@ -64,6 +64,18 @@ const getDefaultValues = (survey: Survey): SurveyForm => {
         questions: [],
       },
     },
+    conjoint: [
+      {
+        statement: EditorState.createEmpty(),
+        attributes: [],
+        items: [],
+      },
+    ],
+    quadratic: [
+      {
+        statement: EditorState.createEmpty(),
+      },
+    ],
     message: {
       welcome: EditorState.createEmpty(),
       completion: EditorState.createEmpty(),

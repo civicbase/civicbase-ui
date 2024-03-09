@@ -1,7 +1,5 @@
-import { FormProvider, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { FormProvider, useFormContext } from 'react-hook-form'
 
-import { useSurveyState } from 'contexts/dashboard'
 import { ConjointWithoutSubmit } from 'features/Survey/Questions/methods/Conjoint'
 import { LikertWithoutSubmit } from 'features/Survey/Questions/methods/Likert'
 import {
@@ -12,21 +10,23 @@ import useQuadratic from 'hooks/use-quadratic'
 import QuadraticVote from 'quadratic-vote'
 import { QuadraticPreference } from 'types/survey.d'
 
-const Preview = () => {
-  const { surveyId } = useParams()
-  const survey = useSurveyState(surveyId!!)
-  const methods = useForm()
-  const { questions, availableCredits, vote, canVote } = useQuadratic(survey!)
+import transform from '../../transform'
 
-  if (!survey) {
-    return null
-  }
+function Review() {
+  const methods = useFormContext()
 
-  const { method, methodPreference } = survey.setup
+  const method = methods.watch('setup.method')
+  const methodPreference = methods.watch('setup.methodPreference')
+  const rawSurvey: any = methods.watch()
+  const survey: any = transform(rawSurvey)
+  survey.mode = 'pilot'
+  const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
+
+  //   TODO: should verify if the survey is valid and display a message in case the survey is not valid to indicate to the user that he needs to have some fields filled in
 
   if (method === 'Quadratic') {
     if (methodPreference === QuadraticPreference.DIAMOND) {
-      const questions = survey.quadratic?.map((question, index) => ({
+      const questions = survey.quadratic?.map((question: any, index: any) => ({
         ...question,
         id: index,
         questionId: question.id,
@@ -46,8 +46,8 @@ const Preview = () => {
           survey={survey}
           questions={questions as any}
           availableCredits={availableCredits}
-          vote={vote}
           canVote={canVote}
+          vote={vote}
         />
       </FormProvider>
     )
@@ -69,7 +69,11 @@ const Preview = () => {
     )
   }
 
-  return <div>preview</div>
+  return (
+    <div>
+      <h2>Review</h2>
+    </div>
+  )
 }
 
-export default Preview
+export default Review

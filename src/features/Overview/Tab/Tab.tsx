@@ -5,13 +5,13 @@ import tw from 'twin.macro'
 import { Tab } from '@headlessui/react'
 
 import Analytics from '../Analytics'
-import Configuration from '../Configuration'
+// import Configuration from '../Configuration'
 import Results from '../Results'
 
 enum View {
   RESULTS = 'results',
   ANALYTICS = 'analytics',
-  CONFIGURATION = 'configuration',
+  // CONFIGURATION = 'configuration',
 }
 
 const TabView = () => {
@@ -44,7 +44,7 @@ const TabView = () => {
             >
               Analytics
             </Tab>
-            <Tab
+            {/* <Tab
               onClick={() => setView(View.CONFIGURATION)}
               css={[
                 tw`w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:(ring-0 outline-none)`,
@@ -54,7 +54,7 @@ const TabView = () => {
               ]}
             >
               Configuration
-            </Tab>
+            </Tab> */}
           </Tab.List>
         </div>
       </Tab.Group>
@@ -62,7 +62,7 @@ const TabView = () => {
       <div css={tw`flex-1 overflow-y-auto overflow-x-hidden mt-5`}>
         {view === View.RESULTS && <Results />}
         {view === View.ANALYTICS && <Analytics />}
-        {view === View.CONFIGURATION && <Configuration />}
+        {/* {view === View.CONFIGURATION && <Configuration />} */}
       </div>
     </div>
   )

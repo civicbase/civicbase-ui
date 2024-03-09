@@ -11,13 +11,12 @@ declare module 'twin.macro' {
 declare module 'react' {
   // The css prop
   interface HTMLAttributes<T> extends DOMAttributes<T> {
-    css?: CSSProp
+    css?: any
     tw?: string
   }
-  // The inline svg css prop
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface SVGProps<T> extends SVGProps<SVGSVGElement> {
-    css?: CSSProp
+    css?: any
     tw?: string
   }
 }

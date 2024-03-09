@@ -8,7 +8,7 @@ const QSummary = ({ questions, pool }: { questions: Question[]; pool: number[] }
   return (
     <div css={tw`absolute left-0 bottom-0 mb-4 ml-4 w-full z-50 bg-white`}>
       <div css={tw`text-sm`}>Pool [{pool.join(', ')}]</div>
-      <Table.Main css={tw`w-full`}>
+      <Table.Main>
         <Table.Head>
           <Table.Row>
             <Table.Header>Question</Table.Header>

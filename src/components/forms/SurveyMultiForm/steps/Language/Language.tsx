@@ -34,7 +34,7 @@ const Language = () => {
             <Dropdown
               options={languages}
               value={field.value}
-              onChange={field.onChange}
+              onChange={(e: any) => field.onChange(e)}
               placeholder="Select preferred language"
               modified={isEditing && fieldState.isDirty}
               error={(errors?.language as any)?.jargon}
@@ -47,7 +47,7 @@ const Language = () => {
       {isCustomJargon && (
         <div css={tw`grid grid-cols-2 gap-8`}>
           <div>
-            <Label>Thumbs Up *</Label>
+            <Label>Agree *</Label>
             <Input
               {...register('language.thumbsUp', { required: isCustomJargon })}
               error={!!(errors.language as any)?.thumbsUp}
@@ -56,7 +56,7 @@ const Language = () => {
           </div>
 
           <div>
-            <Label>Thumbs Down *</Label>
+            <Label>Disagree *</Label>
             <Input
               {...register('language.thumbsDown', { required: isCustomJargon })}
               error={!!(errors.language as any)?.thumbsDown}
@@ -87,7 +87,7 @@ const Language = () => {
 
       {isCustomToken && (
         <div>
-          <Label>Custom Credit Language *</Label>
+          <Label>Custom Token Language *</Label>
           <Input
             {...register('language.customToken', { required: isCustomToken })}
             error={!!(errors.language as any as any)?.customToken}

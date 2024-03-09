@@ -87,10 +87,6 @@ export interface Typegen0 {
     checkingDone:
       | 'done.invoke.auth.checkingIfLoggedIn:invocation[0]'
       | 'error.platform.auth.checkingIfLoggedIn:invocation[0]'
-    clearToken:
-      | 'done.invoke.auth.loginOut:invocation[0]'
-      | 'error.platform.auth.checkingIfLoggedIn:invocation[0]'
-      | 'error.platform.auth.loginOut:invocation[0]'
     clearUser:
       | 'done.invoke.auth.loginOut:invocation[0]'
       | 'error.platform.auth.checkingIfLoggedIn:invocation[0]'
@@ -116,9 +112,6 @@ export interface Typegen0 {
       | 'done.invoke.auth.resetPassword:invocation[0]'
       | 'error.platform.auth.resetPassword:invocation[0]'
     resetPasswordSuccess: 'done.invoke.auth.resetPassword:invocation[0]'
-    setToken:
-      | 'done.invoke.auth.login:invocation[0]'
-      | 'done.invoke.auth.updatePassword:invocation[0]'
     setUser:
       | 'done.invoke.auth.checkingIfLoggedIn:invocation[0]'
       | 'done.invoke.auth.updatePassword:invocation[0]'

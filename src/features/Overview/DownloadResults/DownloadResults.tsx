@@ -54,7 +54,7 @@ const DownloadResults = ({ id }: { id: string }) => {
         {loading ? (
           <Spinner variant="light" css={tw`mr-2`} />
         ) : (
-          <BsDownload size={24} color={theme`colors.white`} css={tw`mr-2`} />
+          <BsDownload size={24} color={theme`colors.white`} tw="mr-2" />
         )}
         Download
       </Button>

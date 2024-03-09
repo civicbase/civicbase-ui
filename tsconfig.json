@@ -20,6 +20,7 @@
       "@ui/*": ["./components/ui/*"]
     }
   },
+  "files": ["types/twin.d.ts"],
   "include": ["src", "types", ".eslintrc", "vite.config.ts"],
   "exclude": ["node_modules", "dist"],
   "references": [

@@ -1,9 +1,8 @@
-import { CiUser } from 'react-icons/ci'
-
 import tw from 'twin.macro'
 
 import { Subtitle, Hint } from '@ui/Typography'
 
+import Koala from 'assets/cute-koala.webp'
 import Card from 'components/Card'
 
 const HeaderDivider = () => {
@@ -43,7 +42,12 @@ const UserProfileCard = ({ email, name }: { email: string; name: string }) => {
           ]}
           style={{ height: 'fit-content' }}
         >
-          <CiUser size={80} />
+          {/* <CiUser size={80} /> */}
+          <img
+            css={tw`inline w-28 h-28 select-none rounded-full`}
+            src={Koala}
+            alt="Koala profile"
+          />
         </div>
       </div>
       <div css={tw`relative z-50 py-20 flex flex-col items-center justify-center`}>

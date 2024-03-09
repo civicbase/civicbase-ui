@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
 
       <Subtitle css={tw`text-gray-500 pt-4`}>Owner and Data Controller</Subtitle>
       <Typography css={tw`text-gray-500 my-2`}>Metanoia Holdings Pty Ltd</Typography>
-      <Typography css={tw`text-gray-500`}>Owner contact email: madeline@civicbase.io</Typography>
+      <Typography css={tw`text-gray-500`}>Owner contact email: madelineb@protonmail.com</Typography>
 
       <div css={tw`[border:.5px_solid] border-gray-200 my-4`} />
 

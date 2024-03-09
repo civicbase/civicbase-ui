@@ -1,5 +1,5 @@
 import { convertToRaw } from 'draft-js'
-import { SurveyForm } from 'types/forms'
+import { LikertMethod, SurveyForm } from 'types/forms.d'
 import { Method, QuadraticPreference, SurveyBase } from 'types/survey.d'
 
 // TODO: improve
@@ -36,13 +36,14 @@ const transform = (request: SurveyForm): SurveyBase => {
     transformedRequest.features = features
   }
 
-  if (
-    ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) &&
-    transformedRequest.setup
-  ) {
-    delete transformedRequest.setup.credits
-    delete transformedRequest.language
-  }
+  // TODO: this is not working as it should
+  // if (
+  //   ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) &&
+  //   transformedRequest.setup
+  // ) {
+  //   delete transformedRequest.setup.credits
+  //   delete transformedRequest.language
+  // }
 
   if (welcome && request.message?.welcome) {
     if (welcome.getCurrentContent().hasText()) {
@@ -89,6 +90,15 @@ const transform = (request: SurveyForm): SurveyBase => {
     transformedRequest.likert = likert.map(question => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
+      if (question.method === LikertMethod.MULTIPLE) {
+        return {
+          ...question,
+          rows: question.rows?.map(row => row.value),
+          columns: question.columns?.map(column => column.value),
+          statement,
+        }
+      }
+
       return {
         ...question,
         statement,
@@ -116,9 +126,17 @@ const transform = (request: SurveyForm): SurveyBase => {
     transformedRequest.message = {}
   }
 
-  // if (transformedRequest.key) {
-  //   delete transformedRequest.key
-  // }
+  // Prevent unecessary data from being sent
+  if (setup.method === Method.CONJOINT) {
+    delete transformedRequest.likert
+    delete transformedRequest.quadratic
+  } else if (setup.method === Method.LIKERT) {
+    delete transformedRequest.conjoint
+    delete transformedRequest.quadratic
+  } else {
+    delete transformedRequest.conjoint
+    delete transformedRequest.likert
+  }
 
   return transformedRequest as SurveyBase
 }

@@ -71,17 +71,15 @@ const Modal = () => {
                 >
                   <div tw="flex items-center">
                     {visibility === Visibility.CONFIRMATION && (
-                      <BsQuestionCircle size={20} css={tw`mr-2`} />
+                      <BsQuestionCircle size={20} tw="mr-2" />
                     )}
 
-                    {visibility === Visibility.ERROR && <BiErrorAlt size={20} css={tw`mr-2`} />}
+                    {visibility === Visibility.ERROR && <BiErrorAlt size={20} tw="mr-2" />}
                     {visibility === Visibility.SUCCESS && (
-                      <AiOutlineCheckCircle size={20} css={tw`mr-2`} />
+                      <AiOutlineCheckCircle size={20} tw="mr-2" />
                     )}
 
-                    {visibility === Visibility.WARNING && (
-                      <AiOutlineWarning size={20} css={tw`mr-2`} />
-                    )}
+                    {visibility === Visibility.WARNING && <AiOutlineWarning size={20} tw="mr-2" />}
 
                     {title}
                   </div>

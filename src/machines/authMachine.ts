@@ -4,7 +4,6 @@ import { updateInformation, updatePassword } from 'services/user'
 import { LoginRequest, ResetRequest, SignupRequest } from 'types/request'
 import { LoginReponse } from 'types/response'
 import { CivicbaseUser } from 'types/user'
-import storage from 'utilities/storage'
 import { assign, createMachine } from 'xstate'
 
 interface Context {
@@ -80,7 +79,7 @@ const authMachine =
             onError: [
               {
                 target: 'loggedOut',
-                actions: ['checkingDone', 'clearUser', 'clearToken'],
+                actions: ['checkingDone', 'clearUser'],
               },
             ],
           },
@@ -125,7 +124,7 @@ const authMachine =
             onDone: [
               {
                 target: 'loggedIn',
-                actions: ['updatePasswordQuiet', 'setUser', 'setToken'],
+                actions: ['updatePasswordQuiet', 'setUser'],
               },
             ],
             onError: [
@@ -159,7 +158,7 @@ const authMachine =
             onDone: [
               {
                 target: 'loggedIn',
-                actions: ['loginQuiet', 'setUserLogin', 'setToken'],
+                actions: ['loginQuiet', 'setUserLogin'],
               },
             ],
             onError: [
@@ -193,13 +192,13 @@ const authMachine =
             onDone: [
               {
                 target: 'loggedOut',
-                actions: ['loginOutQuiet', 'clearUser', 'clearToken', 'goToLoginPage'],
+                actions: ['loginOutQuiet', 'clearUser', 'goToLoginPage'],
               },
             ],
             onError: [
               {
                 target: 'loggedOut',
-                actions: ['loginOutQuiet', 'clearUser', 'clearToken', 'goToLoginPage', 'error'],
+                actions: ['loginOutQuiet', 'clearUser', 'goToLoginPage', 'error'],
               },
             ],
           },
@@ -245,8 +244,6 @@ const authMachine =
         updatePasswordQuiet: assign(ctx => ({ ...ctx, isUpdatingPassword: false })),
         updateInformationBusy: assign(ctx => ({ ...ctx, isUpdatingInformation: true })),
         updateInformationQuiet: assign(ctx => ({ ...ctx, isUpdatingInformation: false })),
-        clearToken: () => storage.clearToken(),
-        setToken: (_ctx, event) => storage.setToken(event.data.token),
         goToLoginPage: () => {
           // navigate('/')
           // TODO:
